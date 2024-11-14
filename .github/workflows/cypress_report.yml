@@ -1,0 +1,63 @@
+name: Cypress Master Branch CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress tests
+        run: npm run scripts
+        env:
+          CI: true
+
+      - name: Merge Test Reports
+        run: npm run combine-reports
+
+      - name: Generate HTML Report
+        run: npm run generate-report
+
+      - name: Upload Cypress Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
+      - name: Upload Cypress Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-report
+          path: cypress/reports
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-html-report
+          path: cypress/reports/mochawesome.html
