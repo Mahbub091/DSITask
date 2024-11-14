@@ -39,6 +39,10 @@ class swagLabsPage {
 		return cy.get("a#logout_sidebar_link").click();
 	}
 
+	AddingProductToCart (desiredProduct) {
+		return cy.clickOnAddToCart('.inventory_item', desiredProduct, '.pricebar .btn_inventory');
+	}
+
 
 }
 

@@ -18,10 +18,13 @@ Cypress.Commands.add("validUrl", (partialUrl, fullUrl) => {
 })
 
 Cypress.Commands.add("clickOnAddToCart", (primaryClass, desiredProductName, subClass) => {
-	cy.contains('.inventory_item', 'Sauce Labs Bolt T-Shirt')
-	.within(() => {
-	  cy.get('.pricebar .btn_inventory').contains('ADD TO CART').click(); 
-	});
-})
+	cy.contains(primaryClass, desiredProductName)
+	  .within(() => {
+		cy.get(subClass)
+		  .contains('ADD TO CART')
+		  .click();
+	  });
+  });
+  
 
 

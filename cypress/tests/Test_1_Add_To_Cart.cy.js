@@ -17,11 +17,11 @@ describe('User Add Desired Product To Cart', () => {
          swagLabsPage.resettingAppStatus();
          swagPage.clickingOnSidebarClose();
 
-         cy.clickOnAddToCart();
+        swagLabsPage.AddingProductToCart('Sauce Labs Bolt T-Shirt');
 
-       swagLabsPage.openingSideMenu();
-       swagLabsPage.resettingAppStatus();
-       swagLabsPage.clickingOnLogOut();
+        swagLabsPage.openingSideMenu();
+        swagLabsPage.resettingAppStatus();
+        swagLabsPage.clickingOnLogOut();
     
      });
 
